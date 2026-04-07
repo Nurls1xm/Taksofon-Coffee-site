@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тапсырыстарды басқару - Taksofon Coffee</title>
+    <link rel="stylesheet" href="css/admin-orders.css">
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <div class="header-left">
+                <img src="image/TaksofonCoffeeLogo.png" alt="Logo" class="logo">
+                <h1>Тапсырыстарды басқару</h1>
+            </div>
+            <div class="header-right">
+                <button onclick="location.reload()" class="btn-refresh">🔄 Жаңарту</button>
+                <button onclick="location.href='admin.html'" class="btn-back">← Артқа</button>
+            </div>
+        </header>
+
+        <!-- Статистика -->
+        <div class="stats-container">
+            <div class="stat-card pending">
+                <div class="stat-icon">📋</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="statPending">0</div>
+                    <div class="stat-label">Қабылданды</div>
+                </div>
+            </div>
+            <div class="stat-card preparing">
+                <div class="stat-icon">☕</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="statPreparing">0</div>
+                    <div class="stat-label">Дайындалуда</div>
+                </div>
+            </div>
+            <div class="stat-card ready">
+                <div class="stat-icon">✅</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="statReady">0</div>
+                    <div class="stat-label">Дайын</div>
+                </div>
+            </div>
+            <div class="stat-card total">
+                <div class="stat-icon">📊</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="statTotal">0</div>
+                    <div class="stat-label">Барлығы</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Фильтр -->
+        <div class="filter-container">
+            <button class="filter-btn active" data-status="all">Барлығы</button>
+            <button class="filter-btn" data-status="pending">Қабылданды</button>
+            <button class="filter-btn" data-status="preparing">Дайындалуда</button>
+            <button class="filter-btn" data-status="ready">Дайын</button>
+            <button class="filter-btn" data-status="completed">Аяқталды</button>
+        </div>
+
+        <!-- Тапсырыстар тізімі -->
+        <div id="ordersList" class="orders-list">
+            <div class="loading">Жүктелуде...</div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Firebase конфигурациясы -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/order-tracking.js"></script>
+    
+    <script>
+        let currentFilter = 'all';
+        let ordersData = [];
+        let unsubscribe = null;
+
+        // Бетті жүктеу
+        window.addEventListener('DOMContentLoaded', () => {
+            loadOrders();
+            setupFilters();
+        });
+
+        // Тапсырыстарды жүктеу (real-time)
+        function loadOrders() {
+            if (unsubscribe) unsubscribe();
+            
+            unsubscribe = db.collection('orders')
+                .orderBy('createdAt', 'desc')
+                .onSnapshot((snapshot) => {
+                    ordersData = [];
+                    snapshot.forEach((doc) => {
+                        ordersData.push({
+                            id: doc.id,
+                            ...doc.data()
+                        });
+                    });
+                    
+                    updateStats();
+                    displayOrders();
+                }, (error) => {
+                    console.error('❌ Тапсырыстарды жүктеу қатесі:', error);
+                    document.getElementById('ordersList').innerHTML = `
+                        <div class="error-message">
+                            Қате: ${error.message}
+                        </div>
+                    `;
+                });
+        }
+
+        // Статистиканы жаңарту
+        function updateStats() {
+            const stats = {
+                pending: 0,
+                preparing: 0,
+                ready: 0,
+                total: ordersData.length
+            };
+            
+            ordersData.forEach(order => {
+                if (stats.hasOwnProperty(order.status)) {
+                    stats[order.status]++;
+                }
+            });
+            
+            document.getElementById('statPending').textContent = stats.pending;
+            document.getElementById('statPreparing').textContent = stats.preparing;
+            document.getElementById('statReady').textContent = stats.ready;
+            document.getElementById('statTotal').textContent = stats.total;
+        }
+
+        // Тапсырыстарды көрсету
+        function displayOrders() {
+            const container = document.getElementById('ordersList');
+            
+            // Фильтрлеу
+            let filteredOrders = ordersData;
+            if (currentFilter !== 'all') {
+                filteredOrders = ordersData.filter(order => order.status === currentFilter);
+            }
+            
+            if (filteredOrders.length === 0) {
+                container.innerHTML = '<div class="no-orders">Тапсырыстар жоқ</div>';
+                return;
+            }
+            
+            // HTML құру
+            let html = '';
+            filteredOrders.forEach(order => {
+                html += createOrderCard(order);
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Тапсырыс картасын құру
+        function createOrderCard(order) {
+            const statusText = getStatusText(order.status);
+            const statusIcon = getStatusIcon(order.status);
+            const createdDate = order.createdAt.toDate();
+            const timeStr = formatDateTime(createdDate);
+            
+            // Өнімдер тізімі
+            let itemsHTML = '';
+            order.items.forEach(item => {
+                itemsHTML += `<div class="order-item-mini">${item.name} x${item.quantity}</div>`;
+            });
+            
+            return `
+                <div class="order-card ${order.status}">
+                    <div class="order-card-header">
+                        <div class="order-number">
+                            <strong>№ ${order.orderNumber}</strong>
+                            <span class="verification-code">Код: ${order.verificationCode}</span>
+                        </div>
+                        <div class="order-status-badge ${order.status}">
+                            <span>${statusIcon}</span>
+                            <span>${statusText}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="order-card-body">
+                        <div class="order-info">
+                            <div class="info-row">
+                                <span class="info-label">👤 Клиент:</span>
+                                <span>${order.customerName || 'Қонақ'}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">📞 Телефон:</span>
+                                <span>${order.phoneNumber || '-'}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">🕐 Уақыты:</span>
+                                <span>${timeStr}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="order-items-list">
+                            ${itemsHTML}
+                        </div>
+                        
+                        <div class="order-total">
+                            <strong>Жалпы:</strong>
+                            <strong>${order.total} ₸</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="order-card-actions">
+                        ${getActionButtons(order)}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Әрекет батырмаларын алу
+        function getActionButtons(order) {
+            const buttons = [];
+            
+            if (order.status === 'pending') {
+                buttons.push(`<button onclick="updateOrderStatus('${order.id}', 'preparing')" class="btn-action preparing">☕ Дайындауға</button>`);
+            }
+            
+            if (order.status === 'preparing') {
+                buttons.push(`<button onclick="updateOrderStatus('${order.id}', 'ready')" class="btn-action ready">✅ Дайын</button>`);
+            }
+            
+            if (order.status === 'ready') {
+                buttons.push(`<button onclick="updateOrderStatus('${order.id}', 'completed')" class="btn-action completed">🎉 Аяқтау</button>`);
+            }
+            
+            buttons.push(`<button onclick="viewOrderDetails('${order.id}')" class="btn-action view">👁️ Көру</button>`);
+            
+            return buttons.join('');
+        }
+
+        // Тапсырыс күйін өзгерту
+        async function updateOrderStatus(orderId, newStatus) {
+            const order = ordersData.find(o => o.id === orderId);
+            if (!order) return;
+            
+            // Растау модалын көрсету
+            showConfirmModal(order, newStatus, async () => {
+                try {
+                    await db.collection('orders').doc(orderId).update({
+                        status: newStatus,
+                        updatedAt: firebase.firestore.Timestamp.now()
+                    });
+                    
+                    console.log('✅ Күй өзгертілді:', newStatus);
+                    
+                    // Сәтті хабарлама
+                    showSuccessNotification(newStatus);
+                    
+                } catch (error) {
+                    console.error('❌ Күйді өзгерту қатесі:', error);
+                    showErrorNotification(error.message);
+                }
+            });
+        }
+        
+        // Растау модалын көрсету
+        function showConfirmModal(order, newStatus, onConfirm) {
+            const statusText = getStatusText(newStatus);
+            const statusIcon = getStatusIcon(newStatus);
+            
+            const modal = document.createElement('div');
+            modal.className = 'confirm-modal';
+            modal.innerHTML = `
+                <div class="confirm-modal-content">
+                    <div class="confirm-icon ${newStatus}">
+                        ${statusIcon}
+                    </div>
+                    <h2>Күйді өзгерту</h2>
+                    <p class="confirm-text">
+                        Тапсырыс <strong>№ ${order.orderNumber}</strong> күйін<br>
+                        <span class="status-highlight ${newStatus}">"${statusText}"</span> деп өзгертесіз бе?
+                    </p>
+                    <div class="order-preview">
+                        <div class="preview-row">
+                            <span>👤 Клиент:</span>
+                            <span>${order.customerName || 'Қонақ'}</span>
+                        </div>
+                        <div class="preview-row">
+                            <span>📞 Телефон:</span>
+                            <span>${order.phoneNumber || '-'}</span>
+                        </div>
+                        <div class="preview-row">
+                            <span>💰 Сома:</span>
+                            <span>${order.total} ₸</span>
+                        </div>
+                    </div>
+                    <div class="confirm-actions">
+                        <button class="btn-confirm ${newStatus}" onclick="confirmAction()">
+                            ✓ Растау
+                        </button>
+                        <button class="btn-cancel" onclick="cancelAction()">
+                            ✕ Болдырмау
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Анимация
+            setTimeout(() => modal.classList.add('show'), 10);
+            
+            // Батырма әрекеттері
+            window.confirmAction = () => {
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    modal.remove();
+                    onConfirm();
+                }, 300);
+            };
+            
+            window.cancelAction = () => {
+                modal.classList.remove('show');
+                setTimeout(() => modal.remove(), 300);
+            };
+            
+            // Фонды басқанда жабу
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    window.cancelAction();
+                }
+            });
+        }
+
+        // Тапсырыс детальдарын көру
+        function viewOrderDetails(orderId) {
+            const order = ordersData.find(o => o.id === orderId);
+            if (!order) return;
+            
+            // Modal ашу
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Тапсырыс № ${order.orderNumber}</h2>
+                        <button onclick="this.closest('.modal').remove()" class="modal-close">✕</button>
+                    </div>
+                    <div class="modal-body">
+                        ${generateReceiptHTML(order)}
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        // Фильтрлерді орнату
+        function setupFilters() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.dataset.status;
+                    displayOrders();
+                });
+            });
+        }
+
+        // Сәтті хабарлама
+        function showSuccessNotification(status) {
+            const statusText = getStatusText(status);
+            const statusIcon = getStatusIcon(status);
+            
+            const notification = document.createElement('div');
+            notification.className = 'success-notification';
+            notification.innerHTML = `
+                <div class="notification-icon">${statusIcon}</div>
+                <div class="notification-content">
+                    <div class="notification-title">Сәтті өзгертілді!</div>
+                    <div class="notification-text">Күй: "${statusText}"</div>
+                </div>
+                <div class="notification-progress"></div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 10);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // Қате хабарламасы
+        function showErrorNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'error-notification';
+            notification.innerHTML = `
+                <div class="notification-icon">❌</div>
+                <div class="notification-content">
+                    <div class="notification-title">Қате!</div>
+                    <div class="notification-text">${message}</div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 10);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 4000);
+        }
+
+        // Күн мен уақытты форматтау
+        function formatDateTime(date) {
+            const today = new Date();
+            const isToday = date.toDateString() === today.toDateString();
+            
+            const timeStr = date.toLocaleTimeString('kk-KZ', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            if (isToday) {
+                return `Бүгін ${timeStr}`;
+            }
+            
+            const dateStr = date.toLocaleDateString('kk-KZ', {
+                day: '2-digit',
+                month: '2-digit'
+            });
+            
+            return `${dateStr} ${timeStr}`;
+        }
+
+        // Бетті жапқанда subscription-ды тоқтату
+        window.addEventListener('beforeunload', () => {
+            if (unsubscribe) unsubscribe();
+        });
+    </script>
+</body>
+</html>

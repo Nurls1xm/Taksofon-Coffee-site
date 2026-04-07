@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="kk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кофе</title>
+
+    <!-- SWIPER -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+    <!-- Font Awesome CDN Link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Custom CSS File Link  -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/language-switcher.css">
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div id="menu-btn" class="fas fa-bars"></div>
+
+        <a href="#" class="logo">
+            <img src="image/TaksofonCoffeeLogo.png" alt="Таксофон Коффе" class="logo-image">
+        </a>
+
+        <nav class="navbar">
+            <a href="#home" data-i18n="nav_home">Басты бет</a>
+            <a href="#about" data-i18n="nav_about">Біз туралы</a>
+            <a href="#menu" data-i18n="nav_menu">Мәзір</a>
+            <a href="#review" data-i18n="nav_review">Пікірлер</a>
+            <a href="#order" data-i18n="nav_book">Тапсырыс</a>
+            <a href="#order-display" data-i18n="nav_order_display">Ready Orders</a>
+            <a href="#" class="cart-link" id="cartBtn">
+                <span data-i18n="nav_cart">Себет</span>
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </nav>
+        
+        <!-- Language Switcher in Header Right Corner -->
+        <div class="header-language-switcher">
+            <button class="header-lang-btn active" data-lang="kk" onclick="i18n.setLanguage('kk')">
+                <span class="flag">🇰🇿</span>
+                <span class="lang-text">ҚАЗ</span>
+            </button>
+            <button class="header-lang-btn" data-lang="en" onclick="i18n.setLanguage('en')">
+                <span class="flag">🇺🇸</span>
+                <span class="lang-text">ENG</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- HOME -->
+    <section class="home" id="home">
+        <div class="row">
+            <div class="content">
+                <h3 data-i18n="home_title">Таңертең тамаша кофе</h3>
+            </div>
+
+            <div class="image">
+                <img src="image/home-img-1.png" class="main-home-image" alt="">
+            </div>
+        </div>
+
+        <div class="image-slider">
+            <img src="image/home-img-2.png" alt="">
+            <img src="image/home-img-3.png" alt="">
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <h1 class="heading"><span data-i18n="about_heading">Біз туралы</span> <span data-i18n="about_heading_span">Неліктен бізді таңдау керек?</span></h1>
+
+        <div class="row">
+            <div class="image">
+                <img src="image/about-img.png" alt="">
+            </div>
+
+            <div class="content">
+                <h3 class="title" data-i18n="about_title">Біздің кофені ерекше ететін не?</h3>
+                <p data-i18n="about_description">Біз тек ең жоғары сапалы кофе дәндерін пайдаланамыз және әрбір кесені махаббатпен дайындаймыз. Біздің кәсіби бариста командасы сізге ең жақсы дәмді ұсынуға дайын. Біз әрбір клиентіміздің қанағаттануына ерекше назар аударамыз.</p>
+                <a href="javascript:void(0)" class="btn" data-i18n="about_read_more">Толығырақ оқу</a>
+                <div class="icons-container">
+                    <div class="icons clickable-icon" id="qualityCoffeeBtn">
+                        <img src="image/about-icon-1.png" alt="">
+                        <h3 data-i18n="about_quality">Сапалы кофе</h3>
+                    </div>
+                    <div class="icons clickable-icon" id="branchesBtn">
+                        <img src="image/about-icon-2.png" alt="">
+                        <h3 data-i18n="about_branches">Біздің филиалдар</h3>
+                    </div>
+                    <div class="icons clickable-icon" id="orderCoffeeBtn">
+                        <img src="image/about-icon-3.png" alt="">
+                        <h3 data-i18n="about_order">Кофе тапсырыс беру</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="menu" id="menu">
+        <h1 class="heading"><span data-i18n="menu_heading">Біздің мәзір</span> <span data-i18n="menu_heading_span">Танымал мәзір</span></h1>
+
+        <div class="swiper menu-slider">
+            <div class="swiper-wrapper">
+                <!-- Coffee Slide -->
+                <div class="swiper-slide">
+                    <h2 class="menu-category-title" data-i18n="menu_coffee">Кофе</h2>
+                    <div class="box-container">
+                        <a href="#order" class="box menu-coffee-item" data-coffee="latte">
+                            <img src="image/menu-1.png" alt="">
+                            <div class="content">
+                                <h3 data-i18n="coffee_latte">Латте</h3>
+                                <p data-i18n="coffee_latte_desc">Классикалық эспрессо мен ыстық көбіктендірілген сүттен жасалған, үстіне кішкентай сүт көбігі салынған кофе сусыны.</p>
+                                <span>1090₸</span>
+                            </div>
+                        </a>
+
+                        <a href="#order" class="box menu-coffee-item" data-coffee="raf">
+                            <img src="image/menu-2.png" alt="">
+                            <div class="content">
+                                <h3 data-i18n="coffee_raf">Раф</h3>
+                                <p data-i18n="coffee_raf_desc">Эспрессо, қою кілегей және ванильді қанттың қоспасы біртекті кілегейлі массаға дейін араластырылған.</p>
+                                <span>1190₸</span>
+                            </div>
+                        </a>
+
+                        <a href="#order" class="box menu-coffee-item" data-coffee="flatwhite">
+                            <img src="image/menu-3.png" alt="">
+                            <div class="content">
+                                <h3 data-i18n="coffee_flatwhite">Флэт уайт</h3>
+                                <p data-i18n="coffee_flatwhite_desc">Қос эспрессо мен жібектей сүтті көбіктің жұқа қабатының арқасында бай кофе дәмін беретін "жалпақ ақ" кофе.</p>
+                                <span>990₸</span>
+                            </div>
+                        </a>
+
+                        <a href="#order" class="box menu-coffee-item" data-coffee="mocha">
+                            <img src="image/menu-4.png" alt="">
+                            <div class="content">
+                                <h3 data-i18n="coffee_mocha">Моккачино</h3>
+                                <p data-i18n="coffee_mocha_desc">Шоколадты мокка тәтті дәм сүйетіндерге.</p>
+                                <span>1150₸</span>
+                            </div>
+                        </a>
+
+                        <a href="#order" class="box menu-coffee-item" data-coffee="americano">
+                            <img src="image/menu-5.png" alt="">
+                            <div class="content">
+                                <h3 data-i18n="coffee_americano">Американо</h3>
+                                <p data-i18n="coffee_americano_desc">Эспрессоны ыстық сумен сұйылту арқылы жасалған классикалық кофе сусыны, оның дәмін эспрессоға қарағанда жұмсақ және аз концентрлі етеді.</p>
+                                <span>990₸</span>
+                            </div>
+                        </a>
+
+                        <a href="#order" class="box menu-coffee-item" data-coffee="cappuccino">
+                            <img src="image/menu-6.png" alt="">
+                            <div class="content">
+                                <h3 data-i18n="coffee_cappuccino">Каппучино</h3>
+                                <p data-i18n="coffee_cappuccino_desc">Жұмсақ дәмі бар кремді капучино сүтпен.</p>
+                                <span>1090₸</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tea Slide -->
+                <div class="swiper-slide">
+                    <h2 class="menu-category-title" data-i18n="menu_tea">Шай</h2>
+                    <div class="box-container">
+                        <a href="#" class="box">
+                            <img src="image/tea-1.png" alt="Облепихалы шай">
+                            <div class="content">
+                                <h3 data-i18n="tea_seabuckthorn">Облепихалы шай</h3>
+                                <p data-i18n="tea_seabuckthorn_desc">Дәрумендерге бай облепиха жидектерімен дайындалған пайдалы және дәмді шай. Иммунитетті нығайтады.</p>
+                                <span>890₸</span>
+                            </div>
+                        </a>
+
+                        <a href="#" class="box">
+                            <img src="image/tea-2.png" alt="Жидекті шай">
+                            <div class="content">
+                                <h3 data-i18n="tea_berry">Жидекті шай</h3>
+                                <p data-i18n="tea_berry_desc">Таза жидектердің қоспасынан жасалған ароматты шай. Жаз дәмін сыйлайды.</p>
+                                <span>850₸</span>
+                            </div>
+                        </a>
+
+                        <a href="#" class="box">
+                            <img src="image/tea-3.png" alt="Марокко шайы">
+                            <div class="content">
+                                <h3 data-i18n="tea_morocco">Марокко шайы</h3>
+                                <p data-i18n="tea_morocco_desc">Жалбыз бен дәстүрлі дәмдеуіштермен дайындалған экзотикалық шай. Шығыс дәмі.</p>
+                                <span>890₸</span>
+                            </div>
+                        </a>
+
+                        <a href="#" class="box">
+                            <img src="image/tea-4.png" alt="Имбирлі шай">
+                            <div class="content">
+                                <h3 data-i18n="tea_ginger">Имбирлі шай</h3>
+                                <p data-i18n="tea_ginger_desc">Жаңа имбирмен дайындалған қыздырушы шай. Суық күндерге тамаша таңдау.</p>
+                                <span>890₸</span>
+                            </div>
+                        </a>
+
+                        <a href="#" class="box">
+                            <img src="image/tea-5.png" alt="Глинтвейн шай">
+                            <div class="content">
+                                <h3 data-i18n="tea_gluhwein">Глинтвейн шай</h3>
+                                <p data-i18n="tea_gluhwein_desc">Дәмдеуіштер мен жылы хош иісті дәстүрлі глинтвейн рецептімен дайындалған шай.</p>
+                                <span>890₸</span>
+                            </div>
+                        </a>
+                        <a href="#" class="box">
+                            <img src="image/tea-6.png" alt="Карак шай">
+                            <div class="content">
+                                <h3 data-i18n="tea_karak">Карак шай</h3>
+                                <p data-i18n="tea_karak_desc">Бұл Араб түбегі елдерінен әкелінген күшті, хош иісті сусын, ол араб қонақжайлылығының көрінісі болып табылады және өзінің ащы ноталарымен жанды жылытады.</p>
+                                <span>890₸</span>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </section>
+
+    <!-- REVIEW -->
+    <section class="review" id="review">
+        <h1 class="heading"><span data-i18n="review_heading">Пікірлер</span> <span data-i18n="review_heading_span">Адамдар не дейді?</span></h1>
+
+        <div class="swiper review-slider">
+            <div class="swiper-wrapper">
+                <!-- Отзывы загружаются из Firebase -->
+                <div class="swiper-slide box" style="text-align: center; padding: 40px;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 48px; color: #667eea;"></i>
+                    <p style="margin-top: 20px; color: #7f8c8d;">Загрузка отзывов...</p>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <!-- Review Form -->
+        <div class="review-form-container">
+            <h2 class="review-form-title">
+                <i class="fas fa-pen"></i> <span data-i18n="review_form_title">Өз пікіріңізді қалдырыңыз</span>
+            </h2>
+            <p class="review-form-subtitle" data-i18n="review_form_subtitle">Біз сіздің пікіріңізді бағалаймыз!</p>
+            
+            <form id="reviewForm" class="review-form" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reviewName">
+                            <i class="fas fa-user"></i> <span data-i18n="review_name_label">Аты-жөні</span> *
+                        </label>
+                        <input 
+                            type="text" 
+                            id="reviewName" 
+                            name="name"
+                            class="form-input" 
+                            placeholder="Мысалы: Айдос Нұрлан"
+                            data-i18n="review_name_placeholder"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reviewPhone">
+                            <i class="fas fa-phone"></i> <span data-i18n="review_phone_label">Телефон (қалауыңызша)</span>
+                        </label>
+                        <input 
+                            type="tel" 
+                            id="reviewPhone" 
+                            name="phone"
+                            class="form-input" 
+                            placeholder="+7 (___) ___-__-__"
+                            data-i18n="review_phone_placeholder"
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-star"></i> <span data-i18n="review_rating_label">Бағалау</span> *
+                    </label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating" value="5" id="star5" required>
+                        <label for="star5" class="star"><i class="fas fa-star"></i></label>
+                        
+                        <input type="radio" name="rating" value="4" id="star4">
+                        <label for="star4" class="star"><i class="fas fa-star"></i></label>
+                        
+                        <input type="radio" name="rating" value="3" id="star3">
+                        <label for="star3" class="star"><i class="fas fa-star"></i></label>
+                        
+                        <input type="radio" name="rating" value="2" id="star2">
+                        <label for="star2" class="star"><i class="fas fa-star"></i></label>
+                        
+                        <input type="radio" name="rating" value="1" id="star1">
+                        <label for="star1" class="star"><i class="fas fa-star"></i></label>
+                    </div>
+                    <span class="rating-text" data-i18n="review_rating_text">Жұлдызды басып бағалаңыз</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="reviewText">
+                        <i class="fas fa-comment-dots"></i> <span data-i18n="review_text_label">Пікір</span> *
+                    </label>
+                    <textarea 
+                        id="reviewText" 
+                        name="review"
+                        class="form-textarea" 
+                        placeholder="Біздің қызмет туралы не ойлайсыз? Не ұнады?"
+                        data-i18n="review_text_placeholder"
+                        rows="5"
+                        maxlength="500"
+                        required
+                    ></textarea>
+                    <div class="char-counter">
+                        <span id="reviewCharCount">0</span>/500
+                    </div>
+                </div>
+
+                <!-- Загрузка фото -->
+                <div class="form-group">
+                    <label for="reviewPhoto">
+                        <i class="fas fa-paperclip"></i> <span data-i18n="review_photo_label">Сурет қосу (қалауыңызша)</span>
+                    </label>
+                    <div class="photo-upload-wrapper">
+                        <input 
+                            type="file" 
+                            id="reviewPhoto" 
+                            name="photo"
+                            accept="image/*"
+                            class="photo-input"
+                        >
+                        <label for="reviewPhoto" class="photo-upload-label">
+                            <i class="fas fa-paperclip"></i>
+                            <span data-i18n="review_photo_upload">Сурет таңдаңыз немесе осында апарыңыз</span>
+                            <small data-i18n="review_photo_format">JPG, PNG немесе JPEG (ең көбі 1MB)</small>
+                        </label>
+                        <div class="photo-preview" id="photoPreview"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-review-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span data-i18n="review_submit">Пікір жіберу</span>
+                </button>
+
+                <p class="review-note">
+                    <i class="fas fa-info-circle"></i>
+                    <span data-i18n="review_note">Пікіріңіз модерациядан өткеннен кейін сайтта көрсетіледі</span>
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- ORDER -->
+    <section class="order" id="order">
+        <h1 class="heading"><span data-i18n="order_heading">Тапсырыс беру</span> <span data-i18n="order_heading_span">Өз сусыныңызды таңдаңыз</span></h1>
+
+        <div class="category-buttons">
+            <button class="category-btn active" data-category="0">
+                <img src="image/coffee.svg" class="category-icon" alt="Кофе">
+                <span data-i18n="order_category_coffee">Кофе</span>
+            </button>
+            <button class="category-btn" data-category="1">
+                <img src="image/tea.svg" class="category-icon" alt="Шай">
+                <span data-i18n="order_category_tea">Шай</span>
+            </button>
+            <button class="category-btn" data-category="2">
+                <img src="image/cold-drinks.svg" class="category-icon" alt="Суық сусындар">
+                <span data-i18n="order_category_cold">Суық сусындар</span>
+            </button>
+            <button class="category-btn" data-category="3">
+                <img src="image/drink.svg" class="category-icon" alt="Басқа сусындар">
+                <span data-i18n="order_category_other">Басқа сусындар</span>
+            </button>
+        </div>
+
+        <div class="swiper order-slider">
+            <div class="swiper-wrapper">
+                <!-- Coffee Slide -->
+                <div class="swiper-slide">
+                    <h2 class="order-category-title" data-i18n="order_select_coffee">Кофе түрін таңдаңыз</h2>
+                    <div class="drink-options">
+                        <div class="drink-card active" data-drink="latte">
+                            <img src="image/menu-1.png" alt="Латте">
+                            <h3 data-i18n="coffee_latte">Латте</h3>
+                        </div>
+                        <div class="drink-card" data-drink="raf">
+                            <img src="image/menu-2.png" alt="Раф">
+                            <h3 data-i18n="coffee_raf">Раф</h3>
+                        </div>
+                        <div class="drink-card" data-drink="flatwhite">
+                            <img src="image/menu-3.png" alt="Флэт Уайт">
+                            <h3 data-i18n="coffee_flatwhite">Флэт Уайт</h3>
+                        </div>
+                        <div class="drink-card" data-drink="mocha">
+                            <img src="image/menu-4.png" alt="Мокка">
+                            <h3 data-i18n="coffee_mocha">Мокка</h3>
+                        </div>
+                        <div class="drink-card" data-drink="americano">
+                            <img src="image/menu-5.png" alt="Американо">
+                            <h3 data-i18n="coffee_americano">Американо</h3>
+                        </div>
+                        <div class="drink-card" data-drink="cappuccino">
+                            <img src="image/menu-6.png" alt="Каппучино">
+                            <h3 data-i18n="coffee_cappuccino">Каппучино</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tea Slide -->
+                <div class="swiper-slide">
+                    <h2 class="order-category-title" data-i18n="order_select_tea">Шай түрін таңдаңыз</h2>
+                    <div class="drink-options">
+                        <div class="drink-card" data-drink="seabuckthorn">
+                            <img src="image/tea-1.png" alt="Облепихалы шай">
+                            <h3 data-i18n="tea_seabuckthorn">Облепихалы шай</h3>
+                        </div>
+                        <div class="drink-card" data-drink="berry">
+                            <img src="image/tea-2.png" alt="Жидекті шай">
+                            <h3 data-i18n="tea_berry">Жидекті шай</h3>
+                        </div>
+                        <div class="drink-card" data-drink="morocco">
+                            <img src="image/tea-3.png" alt="Марокко шайы">
+                            <h3 data-i18n="tea_morocco">Марокко шайы</h3>
+                        </div>
+                        <div class="drink-card" data-drink="ginger">
+                            <img src="image/tea-4.png" alt="Имбирлі шай">
+                            <h3 data-i18n="tea_ginger">Имбирлі шай</h3>
+                        </div>
+                        <div class="drink-card" data-drink="gluhwein">
+                            <img src="image/tea-5.png" alt="Глинтвейн шай">
+                            <h3 data-i18n="tea_gluhwein">Глинтвейн шай</h3>
+                        </div>
+                        <div class="drink-card" data-drink="karak">
+                            <img src="image/tea-6.png" alt="Карак шай">
+                            <h3 data-i18n="tea_karak">Карак шай</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cold Drinks Slide -->
+                <div class="swiper-slide">
+                    <h2 class="order-category-title" data-i18n="order_select_cold">Суық сусын таңдаңыз</h2>
+                    <div class="drink-options">
+                        <div class="drink-card" data-drink="icelatte">
+                            <img src="image/LCTAM.png" alt="Лимонад Қарбыз-Мохито">
+                            <h3 data-i18n="cold_watermelon_mojito">Лимонад Қарбыз-Мохито</h3>
+                        </div>
+                        <div class="drink-card" data-drink="iceamericano">
+                            <img src="image/LCTMM.png" alt="Лимонад Манго-Маракуйя">
+                            <h3 data-i18n="cold_mango_passion">Лимонад Манго-Маракуйя</h3>
+                        </div>
+                        <div class="drink-card" data-drink="frappe">
+                            <img src="image/LCTVP.png" alt="Лимонад Шие-Шабдалы">
+                            <h3 data-i18n="cold_cherry_thyme">Лимонад Шие-Шабдалы</h3>
+                        </div>
+                        <div class="drink-card" data-drink="lemonade">
+                            <img src="image/MCTVP.png" alt="Ванильді пломбир">
+                            <h3 data-i18n="cold_vanilla_plombir">Ванильді пломбир</h3>
+                        </div>
+                        <div class="drink-card" data-drink="smoothie">
+                            <img src="image/MCTHP.png" alt="Шоколадты пломбир">
+                            <h3 data-i18n="cold_chocolate_plombir">Шоколадты пломбир</h3>
+                        </div>
+                        <div class="drink-card" data-drink="milkshake">
+                            <img src="image/MCTBP.png" alt="Бананды пудинг">
+                            <h3 data-i18n="cold_banana_pudding">Бананды пудинг</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Drinks Slide -->
+                <div class="swiper-slide">
+                    <h2 class="order-category-title" data-i18n="order_select_other">Басқа сусындар</h2>
+                    <div class="drink-options">
+                        <div class="drink-card" data-drink="cocoa">
+                            <img src="image/CTK.png" alt="Какао">
+                            <h3 data-i18n="other_cocoa">Какао</h3>
+                        </div>
+                        <div class="drink-card" data-drink="matcha">
+                            <img src="image/CTML.png" alt="Матча латте">
+                            <h3 data-i18n="other_matcha_latte">Матча латте</h3>
+                        </div>
+                        <div class="drink-card" data-drink="bumble">
+                            <img src="image/CTGH.png" alt="Ыстық шоколад">
+                            <h3 data-i18n="other_hot_chocolate">Ыстық шоколад</h3>
+                        </div>
+                        <div class="drink-card" data-drink="rafalmond">
+                            <img src="image/CTMS.png" alt="Матча Сакура">
+                            <h3 data-i18n="other_matcha_sakura">Матча Сакура</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+
+    </section>
+
+    <!-- ORDER DISPLAY -->
+    <section class="order-display" id="order-display">
+        <h1 class="heading">
+            <span data-i18n="order_display_heading">Ready Orders</span> 
+            <span data-i18n="order_display_heading_span">Check Your Order Number</span>
+        </h1>
+
+        <div class="order-display-container">
+            <!-- Ready Orders -->
+            <div class="ready-orders-section">
+                <h2 class="ready-title">
+                    <i class="fas fa-check-circle"></i>
+                    <span data-i18n="ready_orders_title">Ready for Pickup</span>
+                </h2>
+                <div class="ready-orders-grid" id="readyOrdersGrid">
+                    <!-- Ready orders will be displayed here -->
+                    <div class="empty-state">
+                        <i class="fas fa-coffee"></i>
+                        <h3 data-i18n="no_ready_orders">No Ready Orders</h3>
+                        <p data-i18n="orders_will_appear">Orders will appear here when ready</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preparing Orders -->
+            <div class="preparing-orders-section">
+                <h3 class="preparing-title">
+                    <i class="fas fa-clock"></i>
+                    <span data-i18n="preparing_orders_title">Being Prepared</span>
+                </h3>
+                <div class="preparing-orders-list" id="preparingOrdersList">
+                    <!-- Preparing orders will be displayed here -->
+                    <div class="empty-state">
+                        <i class="fas fa-hourglass-half"></i>
+                        <p data-i18n="no_preparing_orders">No orders in preparation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3 data-i18n="footer_quick_links">Жылдам сілтемелер</h3>
+                <a href="#home"><i class="fas fa-arrow-right"></i> <span data-i18n="nav_home">Басты бет</span></a>
+                <a href="#about"><i class="fas fa-arrow-right"></i> <span data-i18n="nav_about">Біз туралы</span></a>
+                <a href="#menu"><i class="fas fa-arrow-right"></i> <span data-i18n="nav_menu">Мәзір</span></a>
+                <a href="#order"><i class="fas fa-arrow-right"></i> <span data-i18n="nav_book">Тапсырыс</span></a>
+                <a href="#review"><i class="fas fa-arrow-right"></i> <span data-i18n="nav_review">Пікірлер</span></a>
+            </div>
+
+            <div class="box">
+                <h3 data-i18n="footer_contact">Байланыс ақпараты</h3>
+                <a href="https://wa.me/77012505777" target="_blank"><i class="fab fa-whatsapp"></i> +7 (701) 250-57-77</a>
+                <a href="https://wa.me/77002771603" target="_blank"><i class="fab fa-whatsapp"></i> +7 (700) 277-16-03</a>
+                <a href="mailto:taksofoncoffee@gmail.com"><i class="fas fa-envelope"></i> taksofoncoffee@gmail.com</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i> <span data-i18n="footer_location">Қазақстан, Астана</span></a>
+            </div>
+
+            <div class="box">
+                <h3 data-i18n="footer_social">Әлеуметтік желілер</h3>
+                <a href="https://www.tiktok.com/@taksofon.coffee" target="_blank"><img src="image/tiktok-icon.svg" class="social-icon" alt="TikTok"> TikTok</a>
+                <a href="https://www.instagram.com/taksofon.coffee/?igsh=MWJzdnN3Y21zMDduMg%3D%3D#" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+            </div>
+        </div>
+
+        <div class="credit">
+            <span data-i18n="footer_credit">Жасаған</span> 
+            <a href="https://www.instagram.com/just.r.amir/?igsh=YmliamRrcDNyOGMy" target="_blank" style="color: #d3ad7f; text-decoration: none;">
+                <span data-i18n="footer_designer">веб-дизайнер</span>
+            </a> | 
+            <span data-i18n="footer_rights">барлық құқықтар қорғалған</span>
+        </div>
+    </section>
+
+    <!-- Modal for Coffee Selection -->
+    <div class="modal-overlay" id="coffeeModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img src="image/menu-1.png" alt="Coffee" id="modalCoffeeImage">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalCoffeeName">Латте</h2>
+                    <p id="modalCoffeeDesc">Классикалық эспрессо мен ыстық көбіктендірілген сүттен жасалған</p>
+                    
+                    <h3 class="modal-section-title" data-i18n="modal_choose_size">Көлемін таңдаңыз</h3>
+                    <div class="modal-size-options">
+                        <div class="modal-size-card" data-size="250" data-price="990">
+                            <div class="size-icon">
+                                <img src="image/size-small.png" alt="Кішкентай">
+                            </div>
+                            <h4 data-i18n="modal_size_small">Кішкентай</h4>
+                            <p class="size-volume">250 <span data-i18n="modal_ml">мл</span></p>
+                            <span class="size-price">990₸</span>
+                        </div>
+                        <div class="modal-size-card active" data-size="350" data-price="1090">
+                            <div class="size-icon">
+                                <img src="image/size-medium.png" alt="Орташа">
+                            </div>
+                            <h4 data-i18n="modal_size_medium">Орташа</h4>
+                            <p class="size-volume">350 <span data-i18n="modal_ml">мл</span></p>
+                            <span class="size-price">1090₸</span>
+                            <span class="badge-popular" data-i18n="modal_popular">Танымал</span>
+                        </div>
+                        <div class="modal-size-card" data-size="450" data-price="1190">
+                            <div class="size-icon">
+                                <img src="image/size-large.png" alt="Үлкен">
+                            </div>
+                            <h4 data-i18n="modal_size_large">Үлкен</h4>
+                            <p class="size-volume">450 <span data-i18n="modal_ml">мл</span></p>
+                            <span class="size-price">1190₸</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Alternative Milk (only for Latte, Cappuccino, Flat White) -->
+                    <div id="altMilkSection" style="display: none;">
+                        <h3 class="modal-section-title"><span data-i18n="modal_alt_milk">Балама сүт</span> <span class="optional-label">(<span data-i18n="modal_optional">қалауыңызша</span>, +400₸)</span></h3>
+                        <div class="options-grid">
+                            <label class="option-checkbox">
+                                <input type="radio" name="altMilk" value="coconut" data-price="400">
+                                <span class="checkbox-custom"></span>
+                                <span class="option-text" data-i18n="modal_milk_coconut">Кокос сүті</span>
+                            </label>
+                            <label class="option-checkbox">
+                                <input type="radio" name="altMilk" value="almond" data-price="400">
+                                <span class="checkbox-custom"></span>
+                                <span class="option-text" data-i18n="modal_milk_almond">Бадам сүті</span>
+                            </label>
+                            <label class="option-checkbox">
+                                <input type="radio" name="altMilk" value="hazelnut" data-price="400">
+                                <span class="checkbox-custom"></span>
+                                <span class="option-text" data-i18n="modal_milk_hazelnut">Жаңғақ сүті</span>
+                            </label>
+                            <label class="option-checkbox">
+                                <input type="radio" name="altMilk" value="oat" data-price="400">
+                                <span class="checkbox-custom"></span>
+                                <span class="option-text" data-i18n="modal_milk_oat">Сұлы сүті</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Syrups -->
+                    <h3 class="modal-section-title"><span data-i18n="modal_syrups">Сироптар</span> <span class="optional-label">(<span data-i18n="modal_optional">қалауыңызша</span>, +150₸)</span></h3>
+                    <div class="options-grid">
+                        <label class="option-checkbox">
+                            <input type="checkbox" name="syrup" value="caramel" data-price="150">
+                            <span class="checkbox-custom"></span>
+                            <span class="option-text" data-i18n="modal_syrup_caramel">Карамель</span>
+                        </label>
+                        <label class="option-checkbox">
+                            <input type="checkbox" name="syrup" value="salted-caramel" data-price="150">
+                            <span class="checkbox-custom"></span>
+                            <span class="option-text" data-i18n="modal_syrup_salted_caramel">Тұзды карамель</span>
+                        </label>
+                        <label class="option-checkbox">
+                            <input type="checkbox" name="syrup" value="vanilla" data-price="150">
+                            <span class="checkbox-custom"></span>
+                            <span class="option-text" data-i18n="modal_syrup_vanilla">Ваниль</span>
+                        </label>
+                        <label class="option-checkbox">
+                            <input type="checkbox" name="syrup" value="coconut" data-price="150">
+                            <span class="checkbox-custom"></span>
+                            <span class="option-text" data-i18n="modal_syrup_coconut">Кокос</span>
+                        </label>
+                        <label class="option-checkbox">
+                            <input type="checkbox" name="syrup" value="popcorn" data-price="150">
+                            <span class="checkbox-custom"></span>
+                            <span class="option-text" data-i18n="modal_syrup_popcorn">Попкорн</span>
+                        </label>
+                        <label class="option-checkbox">
+                            <input type="checkbox" name="syrup" value="irish-cream" data-price="150">
+                            <span class="checkbox-custom"></span>
+                            <span class="option-text" data-i18n="modal_syrup_irish">Айриш крим</span>
+                        </label>
+                    </div>
+
+                    <!-- Sugar Options -->
+                    <h3 class="modal-section-title"><span data-i18n="modal_sugar">Қант</span> <span class="optional-label">(<span data-i18n="modal_optional">қалауыңызша</span>, <span data-i18n="modal_free">тегін</span>)</span></h3>
+                    <div class="options-grid">
+                        <label class="option-checkbox">
+                            <input type="radio" name="sugar" value="sugar" data-price="0">
+                            <span class="checkbox-custom"></span>
+                            <span class="option-text" data-i18n="modal_sugar_regular">Қант</span>
+                        </label>
+                        <label class="option-checkbox">
+                            <input type="radio" name="sugar" value="sweetener" data-price="0">
+                            <span class="checkbox-custom"></span>
+                            <span class="option-text" data-i18n="modal_sugar_sweetener">Қант алмастырғыш</span>
+                        </label>
+                        <label class="option-checkbox">
+                            <input type="radio" name="sugar" value="none" data-price="0" checked>
+                            <span class="checkbox-custom"></span>
+                            <span class="option-text" data-i18n="modal_sugar_none">Қантсыз</span>
+                        </label>
+                    </div>
+                    
+                    <h3 class="modal-section-title" data-i18n="modal_quantity">Саны</h3>
+                    <div class="quantity-selector">
+                        <button class="qty-btn minus" id="coffeeQtyMinus">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <input type="number" class="qty-input" id="coffeeQtyInput" value="1" min="1" max="999">
+                        <button class="qty-btn plus" id="coffeeQtyPlus">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+
+                    <!-- Comment Section -->
+                    <h3 class="modal-section-title"><span data-i18n="modal_comment">Пікір</span> <span class="optional-label">(<span data-i18n="modal_optional">қалауыңызша</span>)</span></h3>
+                    <textarea 
+                        class="comment-textarea" 
+                        id="coffeeComment" 
+                        data-i18n="modal_comment_placeholder"
+                        placeholder="Мысалы: кофені күштірек жасаңыз, қантты көбірек қосыңыз, сиропты аз қосыңыз..."
+                        maxlength="200"
+                    ></textarea>
+                    <div class="comment-counter">
+                        <span id="coffeeCommentCounter">0</span>/200
+                    </div>
+                    
+                    <div class="modal-footer"></div>
+                        <div class="modal-total">
+                            <span class="total-label" data-i18n="modal_total">Жалпы:</span>
+                            <span class="total-amount" id="modalTotalPrice">1090₸</span>
+                        </div>
+                        <button class="modal-add-btn" id="modalAddToCart" data-i18n="btn_add_to_cart">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            Себетке қосу
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Other Drinks (with quantity) -->
+    <div class="modal-overlay" id="drinkModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeDrinkModal">&times;</button>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img src="image/tea-1.png" alt="Drink" id="modalDrinkImage">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalDrinkName">Облепихалы шай</h2>
+                    <p id="modalDrinkDesc">Дәрумендерге бай облепиха жидектерімен дайындалған</p>
+                    
+                    <h3 class="modal-section-title" data-i18n="modal_quantity">Саны</h3>
+                    <div class="quantity-selector">
+                        <button class="qty-btn minus" id="qtyMinus">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <input type="number" class="qty-input" id="qtyInput" value="1" min="1" max="999">
+                        <button class="qty-btn plus" id="qtyPlus">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+
+                    <!-- Comment Section -->
+                    <h3 class="modal-section-title"><span data-i18n="modal_comment">Пікір</span> <span class="optional-label" data-i18n="modal_optional">(қалауыңызша)</span></h3>
+                    <textarea 
+                        class="comment-textarea" 
+                        id="drinkComment" 
+                        data-i18n="modal_comment_placeholder"
+                        placeholder="Өз тілектеріңізді жазыңыз..."
+                        maxlength="200"
+                    ></textarea>
+                    <div class="comment-counter">
+                        <span id="drinkCommentCounter">0</span>/200
+                    </div>
+                    
+                    <div class="modal-footer"></div>
+                        <div class="modal-total">
+                            <span class="total-label" data-i18n="modal_total">Жалпы:</span>
+                            <span class="total-amount" id="modalDrinkTotalPrice">890₸</span>
+                        </div>
+                        <button class="modal-add-btn" id="modalDrinkAddToCart" data-i18n="btn_add_to_cart">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            Себетке қосу
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Hot Drinks (Cocoa & Hot Chocolate) with Size Selection -->
+    <div class="modal-overlay" id="hotDrinkModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeHotDrinkModal">&times;</button>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img src="image/CTK.png" alt="Hot Drink" id="modalHotDrinkImage">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalHotDrinkName">Какао</h2>
+                    <p id="modalHotDrinkDesc">Классикалық ыстық какао сүтпен</p>
+                    
+                    <h3 class="modal-section-title">Көлемін таңдаңыз</h3>
+                    <div class="modal-size-options hot-drink-sizes">
+                        <div class="modal-size-card active" data-size="350" data-price="890">
+                            <div class="size-icon">
+                                <img src="image/size-medium.png" alt="Орташа">
+                            </div>
+                            <h4 data-i18n="modal_size_medium">Орташа</h4>
+                            <p class="size-volume">350 <span data-i18n="modal_ml">мл</span></p>
+                            <span class="size-price">890₸</span>
+                        </div>
+                        <div class="modal-size-card" data-size="450" data-price="990">
+                            <div class="size-icon">
+                                <img src="image/size-large.png" alt="Үлкен">
+                            </div>
+                            <h4 data-i18n="modal_size_large">Үлкен</h4>
+                            <p class="size-volume">450 <span data-i18n="modal_ml">мл</span></p>
+                            <span class="size-price">990₸</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="modal-section-title" data-i18n="modal_quantity">Саны</h3>
+                    <div class="quantity-selector">
+                        <button class="qty-btn minus" id="hotDrinkQtyMinus">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <input type="number" class="qty-input" id="hotDrinkQtyInput" value="1" min="1" max="999">
+                        <button class="qty-btn plus" id="hotDrinkQtyPlus">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+
+                    <!-- Comment Section -->
+                    <h3 class="modal-section-title"><span data-i18n="modal_comment">Пікір</span> <span class="optional-label" data-i18n="modal_optional">(қалауыңызша)</span></h3>
+                    <textarea 
+                        class="comment-textarea" 
+                        id="hotDrinkComment" 
+                        data-i18n="modal_comment_placeholder"
+                        placeholder="Өз тілектеріңізді жазыңыз..."
+                        maxlength="200"
+                    ></textarea>
+                    <div class="comment-counter">
+                        <span id="hotDrinkCommentCounter">0</span>/200
+                    </div>
+                    
+                    <div class="modal-footer"></div>
+                        <div class="modal-total">
+                            <span class="total-label" data-i18n="modal_total">Жалпы:</span>
+                            <span class="total-amount" id="modalHotDrinkTotalPrice">890₸</span>
+                        </div>
+                        <button class="modal-add-btn" id="modalHotDrinkAddToCart" data-i18n="btn_add_to_cart">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            Себетке қосу
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Modal -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-content cart-modal-content">
+            <button class="modal-close" id="closeCartModal">&times;</button>
+            <div class="cart-header">
+                <h2><i class="fas fa-shopping-cart"></i> <span data-i18n="cart_title">Себет</span></h2>
+            </div>
+            <div class="cart-body" id="cartBody">
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-basket"></i>
+                    <p data-i18n="cart_empty">Себет бос</p>
+                    <span data-i18n="cart_empty_hint">Тапсырыс беру үшін сусын таңдаңыз</span>
+                </div>
+            </div>
+            <div class="cart-footer" id="cartFooter" style="display: none;">
+                <div class="cart-total">
+                    <span data-i18n="cart_total">Жалпы сома:</span>
+                    <span class="cart-total-price" id="cartTotalPrice">0₸</span>
+                </div>
+                <button class="checkout-btn" id="checkoutBtn">
+                    <i class="fas fa-check-circle"></i>
+                    <span data-i18n="cart_checkout">Тапсырысты рәсімдеу</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-content checkout-modal-content">
+            <button class="modal-close" id="closeCheckoutModal">&times;</button>
+            <div class="checkout-header">
+                <h2><i class="fas fa-clipboard-check"></i> <span data-i18n="checkout_title">Тапсырысты рәсімдеу</span></h2>
+            </div>
+            <div class="checkout-body">
+                <form id="checkoutForm">
+                    <!-- Phone Number -->
+                    <div class="form-group">
+                        <label for="phoneNumber">
+                            <i class="fas fa-phone"></i> <span data-i18n="checkout_phone">Телефон номері</span> *
+                        </label>
+                        <input 
+                            type="tel" 
+                            id="phoneNumber" 
+                            class="form-input" 
+                            placeholder="+7 (___) ___-__-__"
+                            required
+                        >
+                    </div>
+
+                    <!-- Name -->
+                    <div class="form-group">
+                        <label for="customerName">
+                            <i class="fas fa-user"></i> <span data-i18n="checkout_name">Аты-жөні</span> *
+                        </label>
+                        <input 
+                            type="text" 
+                            id="customerName" 
+                            class="form-input" 
+                            data-i18n-placeholder="checkout_name_placeholder"
+                            placeholder="Мысалы: Айдос Нұрлан"
+                            required
+                        >
+                    </div>
+
+                    <!-- Delivery Type -->
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-shipping-fast"></i> <span data-i18n="checkout_delivery_type">Жеткізу түрі</span> *
+                        </label>
+                        <div class="delivery-options">
+                            <label class="delivery-option">
+                                <input type="radio" name="deliveryType" value="delivery" checked>
+                                <span class="delivery-card">
+                                    <i class="fas fa-motorcycle"></i>
+                                    <span data-i18n="checkout_delivery">Жеткізу</span>
+                                </span>
+                            </label>
+                            <label class="delivery-option">
+                                <input type="radio" name="deliveryType" value="pickup">
+                                <span class="delivery-card">
+                                    <i class="fas fa-store"></i>
+                                    <span data-i18n="checkout_pickup">Өзім аламын</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Address (shown only for delivery) -->
+                    <div class="form-group" id="addressGroup">
+                        <label for="address">
+                            <i class="fas fa-map-marker-alt"></i> <span data-i18n="checkout_address">Мекенжай</span> *
+                        </label>
+                        <input 
+                            type="text" 
+                            id="address" 
+                            class="form-input" 
+                            data-i18n-placeholder="checkout_address_placeholder"
+                            placeholder="Көше, үй, пәтер"
+                        >
+                        <textarea 
+                            id="addressComment" 
+                            class="form-textarea" 
+                            data-i18n-placeholder="checkout_address_comment"
+                            placeholder="Қосымша ақпарат (подъезд, этаж, домофон...)"
+                            rows="2"
+                        ></textarea>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-credit-card"></i> <span data-i18n="checkout_payment_method">Төлем түрі</span> *
+                        </label>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="cash" checked>
+                                <span class="payment-card">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <span data-i18n="checkout_payment_cash">Қолма-қол ақша</span>
+                                </span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="card">
+                                <span class="payment-card">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span data-i18n="checkout_payment_card">Картамен</span>
+                                </span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="kaspi">
+                                <span class="payment-card">
+                                    <i class="fas fa-qrcode"></i>
+                                    <span>Kaspi QR</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Notification Preferences -->
+                    <div id="notificationPreferencesContainer"></div>
+
+                    <!-- Card Details (shown only when card payment is selected) -->
+                    <div class="form-group" id="cardDetailsGroup" style="display: none;">
+                        <div class="card-details-container">
+                            <h4 class="card-details-title">
+                                <i class="fas fa-lock"></i> <span data-i18n="card_details_title">Карта деректері</span>
+                            </h4>
+                            
+                            <div class="form-group">
+                                <label for="cardNumber">
+                                    <i class="fas fa-credit-card"></i> <span data-i18n="card_number">Карта номері</span> *
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="cardNumber" 
+                                    class="form-input card-input" 
+                                    data-i18n-placeholder="card_number_placeholder"
+                                    placeholder="0000 0000 0000 0000"
+                                    maxlength="19"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cardHolder">
+                                    <i class="fas fa-user"></i> <span data-i18n="card_holder">Карта иесінің аты</span> *
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="cardHolder" 
+                                    class="form-input card-input" 
+                                    data-i18n-placeholder="card_holder_placeholder"
+                                    placeholder="AIDYN NURLAN"
+                                    style="text-transform: uppercase;"
+                                >
+                            </div>
+
+                            <div class="card-row">
+                                <div class="form-group" style="flex: 1;">
+                                    <label for="cardExpiry">
+                                        <i class="fas fa-calendar"></i> <span data-i18n="card_expiry">Жарамдылық мерзімі</span> *
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        id="cardExpiry" 
+                                        class="form-input card-input" 
+                                        data-i18n-placeholder="card_expiry_placeholder"
+                                        placeholder="MM/YY"
+                                        maxlength="5"
+                                    >
+                                </div>
+
+                                <div class="form-group" style="flex: 1;">
+                                    <label for="cardCVV">
+                                        <i class="fas fa-shield-alt"></i> <span data-i18n="card_cvv">CVV</span> *
+                                    </label>
+                                    <input 
+                                        type="password" 
+                                        id="cardCVV" 
+                                        class="form-input card-input" 
+                                        data-i18n-placeholder="card_cvv_placeholder"
+                                        placeholder="•••"
+                                        maxlength="3"
+                                        inputmode="numeric"
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="card-security-note">
+                                <i class="fas fa-shield-alt"></i>
+                                <span data-i18n="card_security">Сіздің деректеріңіз қауіпсіз SSL шифрлауымен қорғалған</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kaspi QR Payment (shown only when Kaspi QR is selected) -->
+                    <div class="form-group" id="kaspiQRGroup" style="display: none;">
+                        <div class="kaspi-qr-container">
+                            <div class="kaspi-qr-header">
+                                <img src="image/logo_kaspi.svg" alt="Kaspi" class="kaspi-logo">
+                                <h4 data-i18n="kaspi_title">Kaspi QR арқылы төлеу</h4>
+                            </div>
+                            
+                            <div class="kaspi-qr-body">
+                                <div class="qr-code-wrapper">
+                                    <div class="qr-code-placeholder">
+                                        <div class="qr-scanner-line"></div>
+                                        <img src="image/qr.png" alt="Kaspi QR" class="qr-code-image">
+                                    </div>
+                                    <div class="qr-amount-badge">
+                                        <span id="qrAmount">0₸</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="kaspi-qr-instructions">
+                                    <h5><i class="fas fa-info-circle"></i> <span data-i18n="kaspi_steps_title">Төлеу қадамдары:</span></h5>
+                                    <ol>
+                                        <li>
+                                            <span class="step-number">1</span>
+                                            <span data-i18n="kaspi_step1">Kaspi.kz қосымшасын ашыңыз</span>
+                                        </li>
+                                        <li>
+                                            <span class="step-number">2</span>
+                                            <span data-i18n="kaspi_step2">"Төлеу" бөліміне өтіңіз</span>
+                                        </li>
+                                        <li>
+                                            <span class="step-number">3</span>
+                                            <span data-i18n="kaspi_step3">QR кодты сканерлеңіз</span>
+                                        </li>
+                                        <li>
+                                            <span class="step-number">4</span>
+                                            <span data-i18n="kaspi_step4">Төлемді растаңыз</span>
+                                        </li>
+                                    </ol>
+                                </div>
+                                
+                                <div class="kaspi-qr-note">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <p data-i18n="kaspi_note">Тапсырысты растағаннан кейін, QR код арқылы төлем жасаңыз. Төлем туралы менеджер сізге хабарласады.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="order-summary-box">
+                        <h3 data-i18n="checkout_order_summary">Тапсырыс</h3>
+                        <div class="summary-row">
+                            <span data-i18n="checkout_items">Тауарлар:</span>
+                            <span id="checkoutItemsTotal">0₸</span>
+                        </div>
+                        <div class="summary-row" id="deliveryFeeRow">
+                            <span data-i18n="checkout_delivery_fee">Жеткізу:</span>
+                            <span id="deliveryFee">500₸</span>
+                        </div>
+                        <div class="summary-row total-row">
+                            <span data-i18n="checkout_total">Жалпы:</span>
+                            <span id="checkoutTotal">0₸</span>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-order-btn">
+                        <i class="fas fa-check-circle"></i>
+                        <span data-i18n="checkout_submit">Тапсырысты растау</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Modal -->
+    <div class="modal-overlay" id="infoModal">
+        <div class="modal-content info-modal-content">
+            <button class="modal-close" id="closeInfoModal">&times;</button>
+            <div class="info-modal-body">
+                <div class="info-icon" id="infoIcon">
+                    <i class="fas fa-coffee"></i>
+                </div>
+                <h2 id="infoTitle">Сапалы кофе</h2>
+                <div class="info-text" id="infoText">
+                    <p>Біздің кофеханада біз Бразилиядан әкелінген 100% арабика дәндерін, Сантос сортын пайдаланамыз — бұл әлемдегі ең танымал және сүйікті сорттардың бірі.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Receipt Modal -->
+    <div class="modal-overlay" id="receiptModal">
+        <div class="modal-content" style="max-width: 45rem;">
+            <button class="modal-close" id="closeReceiptModal">&times;</button>
+            <div class="receipt">
+                <!-- Receipt Header -->
+                <div class="receipt-header">
+                    <div class="coffee-icon">☕</div>
+                    <h1>TAKSOFON COFFEE</h1>
+                    <p style="margin: 0; font-size: 12px; color: #666;">Астана, Қазақстан</p>
+                </div>
+
+                <hr class="receipt-divider">
+
+                <!-- Order Information -->
+                <div class="receipt-info">
+                    <div class="receipt-row">
+                        <span class="label" data-i18n="receipt_date">Күні:</span>
+                        <span class="value" id="receiptDate">2024-01-01 12:00</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="label" data-i18n="receipt_customer">Тапсырыс беруші:</span>
+                        <span class="value" id="receiptCustomer">Клиент</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="label" data-i18n="receipt_phone">Телефон:</span>
+                        <span class="value" id="receiptPhone">+7 (___) ___-__-__</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="label" data-i18n="receipt_delivery">Жеткізу:</span>
+                        <span class="value" id="receiptDelivery">Өзім аламын</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="label" data-i18n="receipt_payment">Төлем:</span>
+                        <span class="value" id="receiptPayment">Қолма-қол ақша</span>
+                    </div>
+                </div>
+
+                <hr class="receipt-divider">
+
+                <!-- Order Number -->
+                <div class="receipt-order-number">
+                    <div class="label" data-i18n="receipt_order_number">ТАПСЫРЫС НӨМІРІ</div>
+                    <div class="order-number-display" id="receiptOrderNumber">#1234</div>
+                    <div style="font-size: 12px; color: #666; margin-top: 5px;" data-i18n="receipt_track_instruction">
+                        Бұл нөмірді "Дайын тапсырыстар" бөлімінде тексеріңіз
+                    </div>
+                </div>
+
+                <hr class="receipt-divider">
+
+                <!-- Order Status -->
+                <div class="receipt-status pending" id="receiptStatus">
+                    <span class="status-icon">⏳</span>
+                    <span data-i18n="receipt_status_new">Жаңа тапсырыс</span>
+                </div>
+
+                <!-- Order Items -->
+                <div class="receipt-items">
+                    <div class="receipt-items-header" data-i18n="receipt_items">ТАПСЫРЫС:</div>
+                    <div id="receiptItemsList">
+                        <!-- Items will be populated here -->
+                    </div>
+                </div>
+
+                <hr class="receipt-divider">
+
+                <!-- Total -->
+                <div class="receipt-total">
+                    <span class="label" data-i18n="receipt_total">ЖАЛПЫ:</span>
+                    <span class="amount" id="receiptTotal">0₸</span>
+                </div>
+
+                <!-- Footer -->
+                <div class="receipt-footer">
+                    <p data-i18n="receipt_thank_you">Рахмет! Сіздің тапсырысыңыз қабылданды</p>
+                    <p data-i18n="receipt_contact">Сұрақтар бойынша: +7 (701) 250-57-77</p>
+                    <p class="thank-you">☕ TAKSOFON COFFEE ☕</p>
+                </div>
+
+                <!-- Actions -->
+                <div class="receipt-actions">
+                    <button class="btn-receipt btn-track-order" onclick="scrollToOrderDisplay()">
+                        <i class="fas fa-tv"></i>
+                        <span data-i18n="receipt_check_display">Дисплейді тексеру</span>
+                    </button>
+                    <button class="btn-receipt btn-print" onclick="printReceipt()">
+                        <i class="fas fa-print"></i>
+                        <span data-i18n="receipt_print">Басып шығару</span>
+                    </button>
+                    <button class="btn-receipt btn-close" onclick="closeReceiptModal()">
+                        <i class="fas fa-times"></i>
+                        <span data-i18n="receipt_close">Жабу</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SWIPER -->
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+    <!-- Firebase SDK (БЕЗ Storage) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+    <!-- Toast Notification -->
+    <div class="toast-notification" id="toastNotification">
+        <div class="toast-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="toast-content">
+            <div class="toast-title" data-i18n="notification_added_to_cart">Себетке қосылды!</div>
+            <div class="toast-message"></div>
+        </div>
+    </div>
+
+    <!-- Firebase Config & APIs -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-orders.js"></script>
+    <script src="js/firebase-reviews.js"></script>
+
+    <!-- Internationalization (i18n) -->
+    <script src="js/i18n.js"></script>
+    
+    <!-- Notification Preferences - УБРАНО -->
+    <!-- <script src="js/notification-preferences-simple.js"></script> -->
+
+    <!-- Custom JS File Link  -->
+    <script src="js/script.js"></script>
+    <script src="js/reviews.js"></script>
+
+</body>
+
+</html>

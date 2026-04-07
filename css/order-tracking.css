@@ -1,0 +1,521 @@
+/* 🎨 Тапсырысты бақылау беті стильдері */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #7b613f 0%, #5a4a3a 100%);
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tracking-container {
+    width: 100%;
+    max-width: 600px;
+}
+
+/* === Іздеу формасы === */
+.search-section {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+.logo h1 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+}
+
+.tracking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #555;
+    font-size: 14px;
+}
+
+.form-group input {
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #7b613f;
+    box-shadow: 0 0 0 3px rgba(123, 97, 63, 0.1);
+}
+
+.btn-track {
+    padding: 15px;
+    background: linear-gradient(135deg, #7b613f 0%, #5a4a3a 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-track:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(123, 97, 63, 0.3);
+}
+
+.error-message {
+    background: #fee;
+    color: #c33;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #c33;
+    margin-top: 15px;
+}
+
+/* === Тапсырыс ақпараты === */
+.order-section {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.order-header h2 {
+    font-size: 20px;
+    color: #333;
+}
+
+.btn-back {
+    padding: 10px 20px;
+    background: #f5f5f5;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.btn-back:hover {
+    background: #e0e0e0;
+}
+
+/* === Күй индикаторы === */
+.status-timeline {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.status-timeline::before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background: #e0e0e0;
+    z-index: 0;
+}
+
+.status-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.status-icon {
+    width: 50px;
+    height: 50px;
+    background: #f5f5f5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all 0.3s;
+    border: 3px solid #e0e0e0;
+}
+
+.status-step.active .status-icon {
+    background: linear-gradient(135deg, #7b613f 0%, #5a4a3a 100%);
+    border-color: #7b613f;
+    transform: scale(1.1);
+}
+
+.status-label {
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+    font-weight: 600;
+}
+
+.status-step.active .status-label {
+    color: #7b613f;
+}
+
+/* === Ағымдағы күй === */
+.current-status {
+    margin-bottom: 30px;
+}
+
+.status-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.preparing {
+    background: #cfe2ff;
+    color: #084298;
+}
+
+.status-badge.ready {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.status-icon-big {
+    font-size: 32px;
+}
+
+/* === Тапсырыс детальдары === */
+.order-details {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.order-details h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+}
+
+.item-name {
+    color: #555;
+}
+
+.item-price {
+    font-weight: 600;
+    color: #333;
+}
+
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #7b613f;
+}
+
+/* === Уақыт ақпараты === */
+.order-time {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.time-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+}
+
+/* === Чек стильдері === */
+.receipt {
+    font-family: 'Courier New', monospace;
+    background: white;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    border: 2px solid #333;
+    border-radius: 10px;
+}
+
+.receipt-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.receipt-header h2 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.receipt-divider {
+    border-top: 2px dashed #999;
+    margin: 15px 0;
+}
+
+.receipt-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.receipt-order-number {
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+}
+
+.order-number-big {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0;
+    letter-spacing: 2px;
+}
+
+.verification-code {
+    font-size: 18px;
+    color: #7b613f;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.receipt-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+.receipt-items {
+    margin: 15px 0;
+}
+
+.receipt-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.receipt-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.receipt-footer {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+}
+
+.receipt-tracking {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.receipt-tracking .btn-track {
+    width: 100%;
+}
+
+/* === Modal === */
+.receipt-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.receipt-modal-content {
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.receipt-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.receipt-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-print,
+.btn-close-modal {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-print {
+    background: #7b613f;
+    color: white;
+}
+
+.btn-close-modal {
+    background: #f5f5f5;
+    color: #333;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+    .search-section,
+    .order-section {
+        padding: 20px;
+    }
+    
+    .logo h1 {
+        font-size: 20px;
+    }
+    
+    .status-label {
+        font-size: 10px;
+    }
+    
+    .status-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    .receipt {
+        padding: 20px;
+    }
+}
+
+/* === Басып шығару стилі === */
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+    
+    .receipt-modal {
+        position: static;
+        background: none;
+    }
+    
+    .receipt-close,
+    .receipt-actions {
+        display: none;
+    }
+    
+    .receipt {
+        border: 2px solid #000;
+        max-width: 100%;
+    }
+}

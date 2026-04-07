@@ -1,0 +1,3 @@
+# Запретить доступ к логам
+Order deny,allow
+Deny from all

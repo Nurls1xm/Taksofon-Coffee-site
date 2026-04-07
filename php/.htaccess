@@ -1,0 +1,22 @@
+# Защита PHP файлов от прямого доступа (кроме API endpoints)
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "firebase.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Разрешить доступ к API endpoints
+<FilesMatch "^(auth|menu|orders|reviews|branches)\.php$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>
+
+# Безопасность заголовки
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "DENY"
+</IfModule>

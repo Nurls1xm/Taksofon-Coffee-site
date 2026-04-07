@@ -1,0 +1,233 @@
+/* Order Display System CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.display-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.display-header {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo img {
+    height: 60px;
+    width: auto;
+}
+
+.logo h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.current-time {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Main Display */
+.display-main {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.ready-orders-section h2 {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: #4CAF50;
+}
+
+.orders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.order-card {
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.5s ease-out;
+    border: 3px solid #4CAF50;
+}
+
+.order-card.ready {
+    animation: pulse 2s infinite;
+}
+
+.order-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.order-customer {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.order-items {
+    font-size: 1rem;
+    color: #888;
+    line-height: 1.4;
+}
+
+/* Preparing Orders */
+.preparing-orders-section h3 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #FFC107;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.preparing-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.preparing-order {
+    background: rgba(255, 193, 7, 0.2);
+    border: 2px solid #FFC107;
+    padding: 15px 25px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 120px;
+}
+
+.preparing-order .order-number {
+    font-size: 1.8rem;
+    color: #FFC107;
+    margin-bottom: 5px;
+}
+
+.preparing-order .order-customer {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Footer */
+.display-footer {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    text-align: center;
+    font-size: 1.2rem;
+    border-top: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 15px 40px rgba(76, 175, 80, 0.4);
+    }
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .display-header {
+        padding: 15px 20px;
+    }
+    
+    .logo h1 {
+        font-size: 2rem;
+    }
+    
+    .current-time {
+        font-size: 1.4rem;
+    }
+    
+    .ready-orders-section h2 {
+        font-size: 2.5rem;
+    }
+    
+    .orders-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    
+    .order-card {
+        padding: 20px;
+    }
+    
+    .order-number {
+        font-size: 2.5rem;
+    }
+}

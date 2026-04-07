@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Әкімші панелі | Таксофон Кофе</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/admin-improved.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <img src="image/TaksofonCoffeeLogo.png" alt="Таксофон Кофе" class="login-logo">
+                <h2>Әкімші панелі</h2>
+<parameter name="p">Кофехананы басқару үшін кіріңіз</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i> Email
+                    </label>
+                    <input type="email" id="username" name="username" placeholder="admin@taksofon.coffee" required autocomplete="username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Құпия сөз
+                    </label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password">
+                </div>
+                
+                <div id="loginError" class="error-message"></div>
+                
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Кіру
+                </button>
+            </form>
+            
+            <div class="login-footer">
+                <p style="font-size: 13px; color: #7f8c8d; margin-top: 20px;">
+                    <strong>Кіру үшін пайдаланыңыз:</strong><br>
+                    Email: <strong>admin@taksofon.coffee</strong><br>
+                    Құпия сөз: <strong>admin123</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="image/TaksofonCoffeeLogo.png" alt="Logo" class="sidebar-logo">
+                <h3>Әкімші панелі</h3>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Басты бет</span>
+                </a>
+                <a href="#" class="nav-item" data-section="orders">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Тапсырыстар</span>
+                    <span class="badge" id="newOrdersBadge">0</span>
+                </a>
+                <a href="#" class="nav-item" data-section="menu">
+                    <i class="fas fa-coffee"></i>
+                    <span>Мәзір</span>
+                </a>
+                <a href="#" class="nav-item" data-section="reviews">
+                    <i class="fas fa-star"></i>
+                    <span>Пікірлер</span>
+                    <span class="badge" id="pendingReviewsBadge">0</span>
+                </a>
+                <a href="order-display.html" target="_blank" class="nav-item">
+                    <i class="fas fa-tv"></i>
+                    <span>Order Display</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="admin-info">
+                    <i class="fas fa-user-shield"></i>
+                    <span id="adminUsername">Әкімші</span>
+                </div>
+                <button id="logoutBtn" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Шығу
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1 id="sectionTitle">Басты бет</h1>
+                <div class="header-actions">
+                    <button class="btn-refresh" onclick="location.reload()">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalOrders">0</h3>
+                            <p>Барлық тапсырыстар</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="newOrders">0</h3>
+                            <p>Жаңа тапсырыстар</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="preparingOrders">0</h3>
+                            <p>Дайындалуда</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalRevenue">0₸</h3>
+                            <p>Жалпы кіріс</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Графики -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3><i class="fas fa-chart-pie"></i> Тапсырыстар статусы</h3>
+                        <canvas id="ordersChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <h3><i class="fas fa-star"></i> Пікірлер статистикасы</h3>
+                        <canvas id="reviewsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders-section" class="content-section">
+                <div class="section-toolbar">
+                    <div class="toolbar-left">
+                        <select id="orderStatusFilter" class="filter-select">
+                            <option value="">Барлық статустар</option>
+                            <option value="new">Жаңа</option>
+                            <option value="confirmed">Расталған</option>
+                            <option value="preparing">Дайындалуда</option>
+                            <option value="ready">Дайын</option>
+                            <option value="completed">Аяқталған</option>
+                            <option value="cancelled">Бас тартылған</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>№ Тапсырыс</th>
+                                <th>Клиент</th>
+                                <th>Телефон</th>
+                                <th>Сома</th>
+                                <th>Статус</th>
+                                <th>Күні</th>
+                                <th>Әрекеттер</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <tr><td colspan="7" class="text-center">Жүктелуде...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Menu Section -->
+            <section id="menu-section" class="content-section">
+                <div class="section-toolbar">
+                    <button id="addMenuBtn" class="btn-primary">
+                        <i class="fas fa-plus"></i> Сусын қосу
+                    </button>
+                    <button id="importMenuBtn" class="btn-primary" onclick="importAllMenu()" style="background: #27ae60;">
+                        <i class="fas fa-download"></i> Барлық сусындарды импорттау
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Сурет</th>
+                                <th>Атауы</th>
+                                <th>Санат</th>
+                                <th>Баға</th>
+                                <th>Статус</th>
+                                <th>Әрекеттер</th>
+                            </tr>
+                        </thead>
+                        <tbody id="menuTableBody">
+                            <tr><td colspan="6" class="text-center">Жүктелуде...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Reviews Section -->
+            <section id="reviews-section" class="content-section">
+                <div class="section-toolbar">
+                    <select id="reviewStatusFilter" class="filter-select">
+                        <option value="">Барлық пікірлер</option>
+                        <option value="pending">Модерацияда</option>
+                        <option value="approved">Мақұлданған</option>
+                        <option value="rejected">Қабылданбаған</option>
+                    </select>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Клиент</th>
+                                <th>Рейтинг</th>
+                                <th>Пікір</th>
+                                <th>Сурет</th>
+                                <th>Статус</th>
+                                <th>Күні</th>
+                                <th>Әрекеттер</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reviewsTableBody">
+                            <tr><td colspan="7" class="text-center">Жүктелуде...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal Container -->
+    <div id="modalContainer"></div>
+
+    <!-- Chart.js для графиков -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Firebase (Storage не используется - фото в Base64) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    
+    <!-- Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-orders.js"></script>
+    <script src="js/firebase-reviews.js"></script>
+    <script src="js/admin-new.js"></script>
+</body>
+</html>

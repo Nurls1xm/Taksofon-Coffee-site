@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тапсырысты бақылау - Taksofon Coffee</title>
+    <link rel="stylesheet" href="css/order-tracking.css">
+</head>
+<body>
+    <div class="tracking-container">
+        <!-- Іздеу формасы -->
+        <div id="searchForm" class="search-section">
+            <div class="logo">
+                <img src="image/TaksofonCoffeeLogo.png" alt="Taksofon Coffee">
+                <h1>Тапсырысты бақылау</h1>
+            </div>
+            
+            <form id="trackingForm" class="tracking-form">
+                <div class="form-group">
+                    <label for="orderNumber" data-i18n="order_tracking_number">Тапсырыс нөмірі</label>
+                    <input 
+                        type="text" 
+                        id="orderNumber" 
+                        data-i18n-placeholder="order_tracking_number_placeholder"
+                        placeholder="Мысалы: 1734785520123"
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="verificationCode" data-i18n="order_tracking_code">Тексеру коды</label>
+                    <input 
+                        type="text" 
+                        id="verificationCode" 
+                        data-i18n-placeholder="order_tracking_code_placeholder"
+                        placeholder="Мысалы: B7K4"
+                        maxlength="4"
+                        required
+                    >
+                </div>
+                
+                <button type="submit" class="btn-track" data-i18n="order_tracking_check">
+                    🔍 Тапсырысты тексеру
+                </button>
+            </form>
+            
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+        </div>
+        
+        <!-- Тапсырыс ақпараты -->
+        <div id="orderInfo" class="order-section" style="display: none;">
+            <div class="order-header">
+                <h2>Тапсырыс № <span id="displayOrderNumber"></span></h2>
+                <button onclick="resetSearch()" class="btn-back">← Артқа</button>
+            </div>
+            
+            <!-- Күй индикаторы -->
+            <div class="status-timeline">
+                <div class="status-step" data-status="pending">
+                    <div class="status-icon">📋</div>
+                    <div class="status-label">Қабылданды</div>
+                </div>
+                <div class="status-step" data-status="preparing">
+                    <div class="status-icon">☕</div>
+                    <div class="status-label">Дайындалуда</div>
+                </div>
+                <div class="status-step" data-status="ready">
+                    <div class="status-icon">✅</div>
+                    <div class="status-label">Дайын</div>
+                </div>
+            </div>
+            
+            <!-- Ағымдағы күй -->
+            <div id="currentStatus" class="current-status"></div>
+            
+            <!-- Тапсырыс детальдары -->
+            <div class="order-details">
+                <h3>Тапсырыс детальдары</h3>
+                <div id="orderItems" class="order-items"></div>
+                <div class="order-total">
+                    <span>Жалпы сома:</span>
+                    <span id="orderTotal"></span>
+                </div>
+            </div>
+            
+            <!-- Уақыт ақпараты -->
+            <div class="order-time">
+                <div class="time-info">
+                    <span>📅 Жасалған уақыты:</span>
+                    <span id="createdTime"></span>
+                </div>
+                <div class="time-info">
+                    <span>🔄 Соңғы жаңарту:</span>
+                    <span id="updatedTime"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Firebase конфигурациясы -->
+    <script src="js/firebase-config.js"></script>
+    
+    <!-- Internationalization (i18n) -->
+    <script src="js/i18n.js"></script>
+    
+    <!-- Тапсырыс бақылау логикасы -->
+    <script src="js/order-tracking.js"></script>
+    
+    <script>
+        let unsubscribe = null;
+        
+        // URL параметрлерін тексеру
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderNumber = urlParams.get('order');
+            const code = urlParams.get('code');
+            
+            if (orderNumber && code) {
+                document.getElementById('orderNumber').value = orderNumber;
+                document.getElementById('verificationCode').value = code;
+                // Автоматты түрде іздеу
+                setTimeout(() => {
+                    document.getElementById('trackingForm').dispatchEvent(new Event('submit'));
+                }, 500);
+            }
+        });
+        
+        // Форманы жіберу
+        document.getElementById('trackingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const orderNumber = document.getElementById('orderNumber').value.trim();
+            const verificationCode = document.getElementById('verificationCode').value.trim().toUpperCase();
+            
+            if (!orderNumber || !verificationCode) {
+                showError('Барлық өрістерді толтырыңыз');
+                return;
+            }
+            
+            // Тапсырысты іздеу
+            const result = await getOrderStatus(orderNumber, verificationCode);
+            
+            if (result.success) {
+                hideError();
+                displayOrder(result.order, result.orderId);
+                
+                // Real-time жаңарту
+                if (unsubscribe) unsubscribe();
+                unsubscribe = subscribeToOrderStatus(result.orderId, (update) => {
+                    if (update.success) {
+                        updateOrderDisplay(update.order);
+                    }
+                });
+            } else {
+                showError(result.error);
+            }
+        });
+        
+        // Тапсырысты көрсету
+        function displayOrder(order, orderId) {
+            document.getElementById('searchForm').style.display = 'none';
+            document.getElementById('orderInfo').style.display = 'block';
+            document.getElementById('displayOrderNumber').textContent = order.orderNumber;
+            
+            updateOrderDisplay(order);
+        }
+        
+        // Тапсырыс дисплейін жаңарту
+        function updateOrderDisplay(order) {
+            // Күй индикаторын жаңарту
+            updateStatusTimeline(order.status);
+            
+            // Ағымдағы күйді көрсету
+            const statusIcon = getStatusIcon(order.status);
+            const statusText = getStatusText(order.status);
+            document.getElementById('currentStatus').innerHTML = `
+                <div class="status-badge ${order.status}">
+                    <span class="status-icon-big">${statusIcon}</span>
+                    <span class="status-text-big">${statusText}</span>
+                </div>
+            `;
+            
+            // Өнімдер тізімі
+            let itemsHTML = '';
+            order.items.forEach(item => {
+                const itemTotal = item.unitPrice * item.quantity;
+                itemsHTML += `
+                    <div class="order-item">
+                        <div class="item-name">${item.name} x${item.quantity}</div>
+                        <div class="item-price">${itemTotal} ₸</div>
+                    </div>
+                `;
+            });
+            document.getElementById('orderItems').innerHTML = itemsHTML;
+            document.getElementById('orderTotal').textContent = order.total + ' ₸';
+            
+            // Уақыт ақпараты
+            const createdDate = order.createdAt.toDate();
+            const updatedDate = order.updatedAt.toDate();
+            document.getElementById('createdTime').textContent = formatDateTime(createdDate);
+            document.getElementById('updatedTime').textContent = formatDateTime(updatedDate);
+        }
+        
+        // Күй индикаторын жаңарту
+        function updateStatusTimeline(currentStatus) {
+            const steps = document.querySelectorAll('.status-step');
+            const statusOrder = ['pending', 'preparing', 'ready'];
+            const currentIndex = statusOrder.indexOf(currentStatus);
+            
+            steps.forEach((step, index) => {
+                if (index <= currentIndex) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+        }
+        
+        // Іздеуді қайта бастау
+        function resetSearch() {
+            if (unsubscribe) {
+                unsubscribe();
+                unsubscribe = null;
+            }
+            document.getElementById('searchForm').style.display = 'block';
+            document.getElementById('orderInfo').style.display = 'none';
+            document.getElementById('orderNumber').value = '';
+            document.getElementById('verificationCode').value = '';
+        }
+        
+        // Қате көрсету
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+        
+        // Қатені жасыру
+        function hideError() {
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+        
+        // Күн мен уақытты форматтау
+        function formatDateTime(date) {
+            const dateStr = date.toLocaleDateString('kk-KZ', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+            const timeStr = date.toLocaleTimeString('kk-KZ', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            return `${dateStr} ${timeStr}`;
+        }
+        
+        // Бетті жапқанда subscription-ды тоқтату
+        window.addEventListener('beforeunload', () => {
+            if (unsubscribe) unsubscribe();
+        });
+    </script>
+</body>
+</html>
